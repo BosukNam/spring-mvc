@@ -14,7 +14,7 @@ getting started spring mvc with DD(Deployment Descriptor) ver2.5
  
 getting started with mybatis on this project
 
-1. add mybatis, mybatis-spring, spring-jdbc dependencies on pom.xml
+1. add mybatis, mybatis-spring, spring-jdbc, mysql dependencies on pom.xml
 <pre>
 &lt;dependency&gt;
  		&lt;groupId&gt;org.mybatis &lt;/groupId&gt;
@@ -31,8 +31,28 @@ getting started with mybatis on this project
 		&lt;artifactId&gt;spring-jdbc &lt;/artifactId&gt;
 		&lt;version&gt;4.1.0.RELEASE &lt;/version&gt;
 &lt;/dependency&gt;
+&lt;dependency&gt;
+		&lt;groupId&gt;mysql&lt;/groupId&gt;
+		&lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+		&lt;version&gt;5.1.44&lt;/version&gt;
+&lt;/dependency&gt;
 </pre>
-
-2. open spring-controller.xml spring bean configuration file
-3. add xmlns: context and xsi:schemaLocation about spring-beans, spring-context
-4. add  &lt;context:annotation-config/&gt; and beans (datasource, sqlSesscionFactory, sqlSession, user DAO etc…)
+2. add xmlns: context and xsi:schemaLocation about spring-beans, spring-context on spring-controller.xml file
+3. add  &lt;context:annotation-config/&gt; and beans (datasource, sqlSesscionFactory, sqlSession, user DAO etc…)
+4. create mapper files on right location that you wrote on mapperLocations's value
+<pre>&lt;property name="mapperLocations" value="classpath:/sql/*.xml"/&gt;</pre>
+5. execute sql on your code like this. (there are many methods in Sqlsession class)
+<pre>
+@Autowired
+private SqlSession session;<br>
+@RequestMapping("/hello")
+public String hello(Model model, 
+			@RequestParam(value="name",required=false)String name){
+		model.addAttribute("greeting","안녕하세요, "+name);<br>
+		List&lt;Map&lt;String, Object&gt;&gt; resultMap = session.selectList("AccountMapper.selectAll");
+		for(Map&lt;String, Object&gt; map : resultMap){
+			System.out.println(map);
+		}
+		return "hello";
+	}
+</pre> 
