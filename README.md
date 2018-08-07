@@ -2,7 +2,7 @@
 getting started spring mvc with DD(Deployment Descriptor) ver2.5
 
 1. create a new project with Dynamic Web Project (DD ver2.5).
-2. covert project to maven. (right click on Project -> Configure)
+2. convert project to maven. (right click on Project -> Configure)
 3. add Spring Project Nature. (right click on Project -> Spring Tools)
 4. add dependencies in pom.xml
 5. create spring configuration files.
@@ -39,9 +39,9 @@ getting started with mybatis on this project
 </pre>
 2. add xmlns: context and xsi:schemaLocation about spring-beans, spring-context on spring-controller.xml file
 3. add  &lt;context:annotation-config/&gt; and beans (datasource, sqlSesscionFactory, sqlSession, user DAO etc…)
-4. create mapper files on right location that you wrote on mapperLocations's value
+4. create mapper files which location that you wrote on mapperLocations value
 <pre>&lt;property name="mapperLocations" value="classpath:/sql/*.xml"/&gt;</pre>
-5. execute sql on your code like this. (there are many methods in Sqlsession class)
+5. execute your sql with SqlSession. (there are many methods in Sqlsession class)
 <pre>
 @Autowired
 private SqlSession session;<br>
