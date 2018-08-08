@@ -19,12 +19,14 @@ public class HelloController {
 	@RequestMapping("/hello")
 	public String hello(Model model, 
 			@RequestParam(value="name",required=false)String name){
-		model.addAttribute("greeting","안녕하세요, "+name);
 		
-		List<Map<String, Object>> resultMap = session.selectList("AccountMapper.selectAll");
-		for(Map<String, Object> map : resultMap){
-			System.out.println(map);
-		}
+		if(name != null && !name.isEmpty())
+			model.addAttribute("greeting","안녕하세요, "+name);
+		else
+			model.addAttribute("greeting","페이지 방문을 환영합니다! :)");
+		
+		List<Map<String, Object>> resultMapList = session.selectList("AccountMapper.selectAll");
+		model.addAttribute("dataset", resultMapList);
 		
 		return "hello";
 	}
